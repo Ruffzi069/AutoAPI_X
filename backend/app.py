@@ -34,6 +34,20 @@ with app.app_context():
     init_db()
     seed_data()
 
+# Initialize CAN listener for incoming frames
+from can_manager.socketcan_manager import SocketCANManager
+from services.can_listener_service import CANListenerService
+
+can_manager = SocketCANManager()
+can_listener_service = CANListenerService(socketio)
+
+# Start listening for incoming CAN frames
+if not can_manager.simulation_mode:
+    can_manager.start_listening(can_listener_service.process_frame)
+    print("✓ CAN listener enabled - will process incoming frames from vcan0")
+else:
+    print("⚠ CAN listener not available in simulation mode")
+
 # SocketIO event handlers for future frontend integration
 @socketio.on('connect')
 def handle_connect():

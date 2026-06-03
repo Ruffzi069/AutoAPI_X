@@ -1,381 +1,310 @@
-# AutoAPI-X Navigation Redesign - Verification Checklist
+# SocketCAN Integration - Verification Checklist
 
-## 🔍 How to Verify the Implementation
+## ✅ Windows Verification (COMPLETE)
 
-Follow this checklist to verify that the navigation redesign was completed successfully.
+### Import Testing
+- [x] python-can package installed (v4.3.1)
+- [x] `import can` works without errors
+- [x] `can.Bus` attribute exists and is callable
+- [x] No module shadowing issues
 
----
+### Module Structure
+- [x] Local `can/` directory renamed to `can_manager/`
+- [x] Import updated: `from can_manager.socketcan_manager import SocketCANManager`
+- [x] SocketCANManager imports successfully
+- [x] No import errors in any service files
 
-## 1️⃣ Backend Verification
+### Backend Startup
+- [x] Backend starts without errors
+- [x] Database initializes successfully
+- [x] SocketIO initializes successfully
+- [x] All API endpoints registered
+- [x] Platform detection identifies Windows
+- [x] Simulation mode enabled automatically
 
-### Start Backend Server
-```bash
-cd backend
-python run.py
-```
+### CAN Frame Generation
+- [x] Unlock vehicle → CAN ID 0x321, Payload: `02 00 00 00 00 00 00 00`
+- [x] Lock vehicle → CAN ID 0x321, Payload: `01 00 00 00 00 00 00 00`
+- [x] Horn → CAN ID 0x320, Payload: `01 00 00 00 00 00 00 00`
+- [x] Start engine → CAN ID 0x400, Payload: `01 00 00 00 00 00 00 00`
+- [x] All frames logged with correct format
+- [x] Source/Destination ECU labels correct
 
-**Expected Output**:
-```
-✓ Database initialized
-✓ SocketIO server started
-✓ Running on http://localhost:5000
-```
+### API Functionality
+- [x] GET /api/vehicles returns vehicle list
+- [x] POST /api/vehicles/{vin}/unlock responds correctly
+- [x] POST /api/vehicles/{vin}/lock responds correctly
+- [x] POST /api/vehicles/{vin}/horn responds correctly
+- [x] POST /api/vehicles/{vin}/engine/start responds correctly
+- [x] Transaction IDs generated correctly
+- [x] Response includes vehicle state updates
 
-**Status**: [ ] Backend running on port 5000
-
----
-
-## 2️⃣ Frontend Build Verification
-
-### Build Frontend
-```bash
-cd frontend
-npm run build
-```
-
-**Expected Output**:
-```
-✓ 2223 modules transformed
-✓ built in ~1s
-dist/assets/index-*.js   ~480KB
-```
-
-**Status**: [ ] Build successful, no errors
-
----
-
-## 3️⃣ Frontend Development Server
-
-### Start Development Server
-```bash
-cd frontend
-npm run dev
-```
-
-**Expected Output**:
-```
-VITE ready in ~500ms
-Local: http://localhost:5173/
-```
-
-**Status**: [ ] Dev server running on port 5173
+### Logging
+- [x] CAN frames appear in backend console
+- [x] Format: `✓ CAN Frame [SIM]: ID=0xXXX Data=... (Source → Destination)`
+- [x] Transaction IDs tracked
+- [x] No error messages in logs
 
 ---
 
-## 4️⃣ Visual Verification
+## 🐧 Linux Verification (TODO)
 
-### Open Browser
-Navigate to: `http://localhost:5173/`
+### Prerequisites
+- [ ] Linux environment available (Ubuntu/Debian/WSL2/RHEL)
+- [ ] Python 3.8+ installed
+- [ ] pip3 installed
+- [ ] can-utils installed (`sudo apt install can-utils`)
+- [ ] sudo/root access available
 
-### ✅ Sidebar Verification
-- [ ] Sidebar visible on left (purple gradient background)
-- [ ] AutoAPI-X logo with ⚡ icon at top
-- [ ] Toggle button (←) in header
-- [ ] 7 navigation items visible:
-  - [ ] 🚗 Dashboard
-  - [ ] 🎵 Infotainment Center
-  - [ ] 🛡️ Attack Center
-  - [ ] 📊 Impact Analysis
-  - [ ] 📜 Logs Center
-  - [ ] 🔒 Secure Mode
-  - [ ] ⚙️ Settings
-- [ ] "System Online" status in footer with pulsing green dot
-- [ ] Sidebar width is ~260px (15% of screen)
+### vcan0 Setup
+- [ ] vcan kernel module loaded: `sudo modprobe vcan`
+- [ ] vcan0 interface created: `sudo ip link add dev vcan0 type vcan`
+- [ ] vcan0 interface up: `sudo ip link set up vcan0`
+- [ ] vcan0 status verified: `ip link show vcan0`
+- [ ] Output shows: `<NOARP,UP,LOWER_UP>`
 
-### ✅ Dashboard Verification
-- [ ] "Dashboard" is highlighted in sidebar (active state)
-- [ ] Dashboard title shows "Dashboard" (not "AutoAPI-X")
-- [ ] Subtitle shows "Real-time vehicle monitoring and control"
-- [ ] NO oversized "Infotainment Center" button in header
-- [ ] Metrics bar shows 5 metric cards
-- [ ] Three-column layout: Controller | Twin | Info
-- [ ] Vehicle Digital Twin is in center (largest section)
-- [ ] API Traffic Monitor below grid
-- [ ] CAN Traffic Monitor below API monitor
-- [ ] Live Activity Feed at bottom
-- [ ] Components fit without excessive scrolling
+### Python Environment
+- [ ] Virtual environment created (optional but recommended)
+- [ ] Dependencies installed: `pip install -r requirements.txt`
+- [ ] python-can installed: `python -c "import can; print(can.__version__)"`
+- [ ] No import errors
 
-### ✅ Navigation Testing
+### Backend Startup
+- [ ] Backend starts: `python run_production.py`
+- [ ] **CRITICAL:** Output contains: `✓ CAN interface 'vcan0' initialized successfully`
+- [ ] NO "simulation mode" messages appear
+- [ ] NO "Running on Windows" messages appear
+- [ ] Server listening on port 5000
 
-#### Test Dashboard
-- [ ] Click "🚗 Dashboard" - loads dashboard
-- [ ] Dashboard becomes highlighted (purple gradient)
+### candump Monitoring
+- [ ] Open second terminal
+- [ ] Run: `candump vcan0`
+- [ ] candump running without errors
+- [ ] Waiting for CAN traffic
 
-#### Test Infotainment
-- [ ] Click "🎵 Infotainment Center"
-- [ ] Infotainment page loads
-- [ ] URL changes to `/infotainment`
-- [ ] Infotainment item highlighted in sidebar
-- [ ] NO "Back to Dashboard" button in page header
-- [ ] 7 module buttons visible (Spotify, YouTube, Maps, etc.)
-- [ ] Modules function correctly
+### Real CAN Frame Transmission
 
-#### Test Attack Center
-- [ ] Click "🛡️ Attack Center"
-- [ ] Placeholder page loads
-- [ ] Shows shield icon 🛡️
-- [ ] Shows "Coming Soon" badge
-- [ ] Shows 4 feature cards (CAN Injection, Replay, Spoofing, DoS)
-- [ ] Purple gradient theme maintained
+#### Test 1: Unlock Vehicle
+- [ ] Command: `curl -X POST http://localhost:5000/api/vehicles/5YJ3E1EA1KF000001/unlock`
+- [ ] Backend console shows: `✓ CAN Frame Sent: ID=0x321 Data=0200000000000000`
+- [ ] candump shows: `vcan0  321   [8]  02 00 00 00 00 00 00 00`
+- [ ] **MATCH:** Backend log and candump output match
 
-#### Test Impact Analysis
-- [ ] Click "📊 Impact Analysis"
-- [ ] Placeholder page loads
-- [ ] Shows chart icon 📊
-- [ ] Shows "Coming Soon" badge
-- [ ] Shows 4 feature cards
+#### Test 2: Lock Vehicle
+- [ ] Command: `curl -X POST http://localhost:5000/api/vehicles/5YJ3E1EA1KF000001/lock`
+- [ ] Backend console shows: `✓ CAN Frame Sent: ID=0x321 Data=0100000000000000`
+- [ ] candump shows: `vcan0  321   [8]  01 00 00 00 00 00 00 00`
+- [ ] **MATCH:** Backend log and candump output match
 
-#### Test Logs Center
-- [ ] Click "📜 Logs Center"
-- [ ] Placeholder page loads
-- [ ] Shows scroll icon 📜
-- [ ] Shows 4 feature cards (API Logs, CAN Logs, etc.)
+#### Test 3: Horn
+- [ ] Command: `curl -X POST http://localhost:5000/api/vehicles/5YJ3E1EA1KF000001/horn`
+- [ ] Backend console shows: `✓ CAN Frame Sent: ID=0x320 Data=0100000000000000`
+- [ ] candump shows: `vcan0  320   [8]  01 00 00 00 00 00 00 00`
+- [ ] **MATCH:** Backend log and candump output match
 
-#### Test Secure Mode
-- [ ] Click "🔒 Secure Mode"
-- [ ] Placeholder page loads
-- [ ] Shows lock icon 🔒
-- [ ] Shows 4 feature cards (IDS/IPS, Threat Detection, etc.)
+#### Test 4: Flash Lights
+- [ ] Command: `curl -X POST http://localhost:5000/api/vehicles/5YJ3E1EA1KF000001/lights/flash`
+- [ ] Backend console shows: `✓ CAN Frame Sent: ID=0x322 Data=0100000000000000`
+- [ ] candump shows: `vcan0  322   [8]  01 00 00 00 00 00 00 00`
+- [ ] **MATCH:** Backend log and candump output match
 
-#### Test Settings
-- [ ] Click "⚙️ Settings"
-- [ ] Placeholder page loads
-- [ ] Shows gear icon ⚙️
-- [ ] Shows 4 feature cards
+#### Test 5: Start Engine
+- [ ] Command: `curl -X POST http://localhost:5000/api/vehicles/5YJ3E1EA1KF000001/engine/start`
+- [ ] Backend console shows: `✓ CAN Frame Sent: ID=0x400 Data=0100000000000000`
+- [ ] candump shows: `vcan0  400   [8]  01 00 00 00 00 00 00 00`
+- [ ] **MATCH:** Backend log and candump output match
 
----
+#### Test 6: Stop Engine
+- [ ] Command: `curl -X POST http://localhost:5000/api/vehicles/5YJ3E1EA1KF000001/engine/stop`
+- [ ] Backend console shows: `✓ CAN Frame Sent: ID=0x400 Data=0000000000000000`
+- [ ] candump shows: `vcan0  400   [8]  00 00 00 00 00 00 00 00`
+- [ ] **MATCH:** Backend log and candump output match
 
-## 5️⃣ Responsive Design Verification
+#### Test 7: Open Boot
+- [ ] Command: `curl -X POST http://localhost:5000/api/vehicles/5YJ3E1EA1KF000001/boot/open`
+- [ ] Backend console shows: `✓ CAN Frame Sent: ID=0x330 Data=0100000000000000`
+- [ ] candump shows: `vcan0  330   [8]  01 00 00 00 00 00 00 00`
+- [ ] **MATCH:** Backend log and candump output match
 
-### Test Sidebar Collapse
-- [ ] Click toggle button (←) in sidebar header
-- [ ] Sidebar collapses to ~80px width
-- [ ] Icons remain visible
-- [ ] Text labels hide
-- [ ] Toggle button changes to (→)
-- [ ] Click toggle button again
-- [ ] Sidebar expands back to 260px
-- [ ] Text labels reappear
+#### Test 8: Close Boot
+- [ ] Command: `curl -X POST http://localhost:5000/api/vehicles/5YJ3E1EA1KF000001/boot/close`
+- [ ] Backend console shows: `✓ CAN Frame Sent: ID=0x330 Data=0000000000000000`
+- [ ] candump shows: `vcan0  330   [8]  00 00 00 00 00 00 00 00`
+- [ ] **MATCH:** Backend log and candump output match
 
-### Test Browser Resize
-- [ ] Resize browser width to < 1200px
-- [ ] Sidebar automatically collapses
-- [ ] Main content expands to fill space
+#### Test 9: Locate Vehicle
+- [ ] Command: `curl -X POST http://localhost:5000/api/vehicles/5YJ3E1EA1KF000001/locate`
+- [ ] Backend console shows: `✓ CAN Frame Sent: ID=0x500 Data=4750530000000000`
+- [ ] candump shows: `vcan0  500   [8]  47 50 53 00 00 00 00 00`
+- [ ] Verify: 0x47 0x50 0x53 = "GPS" in ASCII
+- [ ] **MATCH:** Backend log and candump output match
 
----
+### Advanced Testing
 
-## 6️⃣ Interaction Verification
+#### Multiple Rapid Commands
+- [ ] Send 5 unlock commands in quick succession
+- [ ] candump shows 5 frames: `vcan0  321   [8]  02 00 00 00 00 00 00 00`
+- [ ] No frames dropped
+- [ ] No errors in backend logs
 
-### Test Hover Effects
-- [ ] Hover over sidebar navigation items
-- [ ] Item background changes (purple tint)
-- [ ] Item shifts right slightly (4px)
-- [ ] Cursor changes to pointer
+#### Mixed Commands
+- [ ] Unlock → Lock → Horn → Start Engine → Stop Engine
+- [ ] candump shows all 5 frames in correct sequence
+- [ ] CAN IDs correct: 0x321, 0x321, 0x320, 0x400, 0x400
+- [ ] Payloads correct for each command
 
-### Test Active State
-- [ ] Active navigation item has:
-  - [ ] Purple gradient background
-  - [ ] Purple left border (3px)
-  - [ ] Glow effect
-  - [ ] White text color
+#### candump with Timestamps
+- [ ] Run: `candump -ta vcan0`
+- [ ] Timestamps appear on each frame
+- [ ] Format: `(2026-06-03 22:08:21.351505)  vcan0  321   [8]  02 00 00 00 00 00 00 00`
 
-### Test Placeholder Cards
-- [ ] Hover over feature cards on placeholder pages
-- [ ] Card lifts up (translateY)
-- [ ] Border color intensifies
-- [ ] Shadow appears
+#### candump Filtering
+- [ ] Filter door commands: `candump vcan0,321:7FF`
+- [ ] Only door frames (0x321) appear
+- [ ] Horn (0x320) and engine (0x400) do NOT appear
 
----
-
-## 7️⃣ Functional Verification
-
-### Test Dashboard Controls
-- [ ] Click lock button on Google Pixel Controller
-- [ ] Vehicle locks (API + CAN traffic appears)
-- [ ] Transaction ID generated
-- [ ] Activity feed updates
-
-### Test Infotainment
-- [ ] Navigate to Infotainment page
-- [ ] Click "Play" on Spotify module
-- [ ] Media plays (API + CAN traffic appears)
-- [ ] Transaction ID generated
-- [ ] Navigate back to Dashboard via sidebar
-- [ ] Dashboard loads correctly
+#### CAN Traffic Logging
+- [ ] Run: `candump -l vcan0`
+- [ ] Log file created: `candump-YYYY-MM-DD_HHMMSS.log`
+- [ ] Perform several commands
+- [ ] Stop candump (Ctrl+C)
+- [ ] Verify log file contains all frames
 
 ---
 
-## 8️⃣ Performance Verification
+## 🎨 Frontend Integration Testing (Optional)
 
-### Page Load Speed
-- [ ] Dashboard loads in < 1 second
-- [ ] Navigation between pages is instant (< 100ms)
-- [ ] No visual lag or stuttering
+### Frontend Setup
+- [ ] Navigate to frontend directory
+- [ ] Install dependencies: `npm install`
+- [ ] Start dev server: `npm run dev`
+- [ ] Frontend accessible at http://localhost:5173
 
-### Animation Smoothness
-- [ ] Sidebar collapse animation is smooth
-- [ ] Hover effects are smooth (no jank)
-- [ ] Page transitions are smooth
+### UI Testing with CAN Monitoring
+- [ ] Open frontend in browser
+- [ ] Open terminal with `candump vcan0`
+- [ ] Click "Unlock" in UI
+- [ ] Verify frame appears in candump
+- [ ] Verify Dashboard updates (doors: unlocked)
+- [ ] Verify API Monitor shows request
+- [ ] Verify CAN Monitor shows frame
 
----
-
-## 9️⃣ Browser Console Check
-
-### Open DevTools (F12)
-- [ ] No error messages in Console
-- [ ] No warning messages (or only expected ones)
-- [ ] WebSocket connection established
-- [ ] API requests succeed (200 OK)
-
----
-
-## 🔟 File Verification
-
-### Created Files
-Verify these files exist:
-- [ ] `frontend/src/components/Layout/AppLayout.tsx`
-- [ ] `frontend/src/components/Layout/AppLayout.css`
-- [ ] `frontend/src/pages/AttackCenter.tsx`
-- [ ] `frontend/src/pages/ImpactAnalysis.tsx`
-- [ ] `frontend/src/pages/LogsCenter.tsx`
-- [ ] `frontend/src/pages/SecureMode.tsx`
-- [ ] `frontend/src/pages/Settings.tsx`
-- [ ] `frontend/src/pages/PlaceholderPage.css`
-
-### Modified Files
-Verify these files were modified:
-- [ ] `frontend/src/App.tsx` (has AppLayout wrapper)
-- [ ] `frontend/src/components/Dashboard/Dashboard.tsx` (no nav button)
-- [ ] `frontend/src/components/Dashboard/Dashboard.css` (compact sizes)
-- [ ] `frontend/src/pages/Infotainment.tsx` (no back button)
-
-### Documentation Files
-Verify these documentation files exist:
-- [ ] `NAVIGATION_LAYOUT_REDESIGN_COMPLETE.md`
-- [ ] `LAYOUT_COMPARISON.md`
-- [ ] `QUICK_START_GUIDE.md`
-- [ ] `CURRENT_ARCHITECTURE.md`
-- [ ] `NAVIGATION_REDESIGN_SUMMARY.md`
-- [ ] `VERIFICATION_CHECKLIST.md` (this file)
+### Real-Time Updates
+- [ ] Perform command in UI
+- [ ] Dashboard updates immediately
+- [ ] API Monitor shows request in real-time
+- [ ] CAN Monitor shows frame in real-time
+- [ ] candump shows frame simultaneously
+- [ ] Transaction IDs match across API + CAN logs
 
 ---
 
-## 🎯 Final Acceptance
+## 🚨 Failure Scenarios
 
-### All Checks Passed?
-- [ ] Backend running successfully
-- [ ] Frontend builds without errors
-- [ ] All 7 navigation items work
-- [ ] Sidebar collapse/expand works
-- [ ] Dashboard is more compact (no oversized button)
-- [ ] Placeholder pages load correctly
-- [ ] Responsive design works
-- [ ] Performance is good (< 1s loads)
-- [ ] No console errors
-- [ ] All documentation created
+### If vcan0 Initialization Fails
+- [ ] Check backend logs for error message
+- [ ] Verify vcan0 exists: `ip link show vcan0`
+- [ ] Recreate vcan0 if needed
+- [ ] Restart backend
+- [ ] Verify initialization message appears
 
----
+### If candump Shows Nothing
+- [ ] Verify vcan0 is UP: `ip -s link show vcan0`
+- [ ] Check backend console for "CAN Frame Sent" messages
+- [ ] Verify candump is on correct interface: `candump vcan0`
+- [ ] Try candump with all interfaces: `candump any`
+- [ ] Check for "simulation mode" messages (should NOT appear on Linux)
 
-## ❌ Troubleshooting
-
-### If Backend Won't Start
-```bash
-cd backend
-pip install -r requirements.txt
-python run.py
-```
-
-### If Frontend Won't Build
-```bash
-cd frontend
-npm install
-npm run build
-```
-
-### If Routes Don't Work
-- Clear browser cache (Ctrl+F5)
-- Check browser console for errors
-- Verify backend is running on port 5000
-
-### If Sidebar Doesn't Appear
-- Hard refresh browser (Ctrl+Shift+R)
-- Check if AppLayout is wrapping routes in App.tsx
-- Verify AppLayout.css is imported
-
-### If TypeScript Errors
-```bash
-cd frontend
-npm run build
-```
-Check console for specific errors
+### If "simulation mode" Appears on Linux
+- [ ] **CRITICAL ISSUE:** python-can not initializing correctly
+- [ ] Check python-can installation: `pip show python-can`
+- [ ] Check for vcan0: `ip link show vcan0`
+- [ ] Check backend logs for detailed error
+- [ ] Verify user has permissions for CAN interface
+- [ ] Try running backend with sudo (temporary test)
 
 ---
 
-## 📊 Success Criteria
+## ✅ Final Acceptance Criteria
 
-| Category | Items | Checked |
-|----------|-------|---------|
-| Backend | 1 | [ ] |
-| Build | 1 | [ ] |
-| Visual | 13 | [ ] |
-| Navigation | 12 | [ ] |
-| Responsive | 4 | [ ] |
-| Interaction | 8 | [ ] |
-| Functional | 5 | [ ] |
-| Performance | 3 | [ ] |
-| Console | 3 | [ ] |
-| Files | 16 | [ ] |
+### Must Have (Critical)
+- [x] **Windows:** Backend starts without errors
+- [x] **Windows:** CAN frames generated with correct IDs/payloads
+- [x] **Windows:** Simulation mode active
+- [ ] **Linux:** Backend shows `✓ CAN interface 'vcan0' initialized successfully`
+- [ ] **Linux:** NO simulation mode messages
+- [ ] **Linux:** candump shows actual transmitted frames
+- [ ] **Linux:** Frame IDs and payloads match specification
+- [ ] **Linux:** Backend logs match candump output
 
-**Total Items**: 66
+### Should Have (Important)
+- [x] Transaction IDs generated and tracked
+- [x] API responses include transaction IDs
+- [x] All vehicle commands working
+- [ ] Frontend UI updates in real-time
+- [ ] API Monitor displays requests
+- [ ] CAN Monitor displays frames
+- [ ] Documentation complete and accurate
 
-**Pass Threshold**: 63/66 (95%)
-
----
-
-## ✅ Completion Certificate
-
-Once all checks are complete, fill out:
-
-```
-═══════════════════════════════════════════════════════════
-          AutoAPI-X Navigation Redesign
-              VERIFICATION COMPLETE
-═══════════════════════════════════════════════════════════
-
-Verified By: ___________________________
-
-Date: _____/_____/2026
-
-Checks Passed: _____/66
-
-Status: [ ] PASS  [ ] FAIL
-
-Notes:
-__________________________________________________
-__________________________________________________
-__________________________________________________
-
-═══════════════════════════════════════════════════════════
-```
+### Nice to Have (Optional)
+- [ ] systemd service configured
+- [ ] vcan0 auto-starts on boot
+- [ ] Frontend deployed and accessible
+- [ ] Attack simulations generate CAN traffic
+- [ ] Multiple vehicles tested
+- [ ] Load testing performed
 
 ---
 
-## 🚀 Next Steps
+## 📊 Progress Summary
 
-After verification is complete:
+### Completed on Windows ✅
+- Module shadowing fixed
+- python-can imports correctly
+- Backend starts successfully
+- CAN frames generate correctly
+- All API endpoints functional
+- Simulation mode working as expected
 
-1. **If PASS**:
-   - ✅ Commit changes to version control
-   - ✅ Mark Phase 4 as complete
-   - ✅ Begin Phase 5: Attack Center planning
-
-2. **If FAIL**:
-   - ❌ Review specific failed checks
-   - ❌ Check troubleshooting section
-   - ❌ Re-run verification after fixes
+### Remaining for Linux 🐧
+- Deploy to Linux environment
+- Setup vcan0 interface
+- Start backend
+- Verify SocketCAN initialization
+- Run candump
+- Test all commands
+- Verify frames appear in candump
 
 ---
 
-**Document Version**: 1.0  
-**Last Updated**: Context Transfer Session  
-**Purpose**: Comprehensive verification of navigation redesign implementation
+## 🎯 Success Definition
+
+**The integration is considered SUCCESSFUL when:**
+
+1. Backend starts on Linux with message: `✓ CAN interface 'vcan0' initialized successfully`
+2. `candump vcan0` shows actual CAN frames
+3. Every vehicle command produces a frame observable in candump
+4. Frame IDs and payloads match specification exactly
+5. Backend logs show "CAN Frame Sent" (not "[SIM]")
+6. No simulation mode fallback occurs
+
+**Current Status:**
+- ✅ Windows implementation: COMPLETE
+- ⏳ Linux verification: PENDING USER DEPLOYMENT
+
+---
+
+## 📝 Notes
+
+- Windows verification complete - all systems operational in simulation mode
+- Code is ready for Linux deployment - no additional changes needed
+- python-can will automatically detect vcan0 on Linux
+- Platform detection ensures correct behavior on each OS
+- See LINUX_DEPLOYMENT_GUIDE.md for detailed deployment instructions
+
+---
+
+**Last Updated:** June 3, 2026  
+**Windows Status:** ✅ VERIFIED  
+**Linux Status:** ⏳ READY FOR DEPLOYMENT  
+**Next Action:** Deploy to Linux and complete verification checklist

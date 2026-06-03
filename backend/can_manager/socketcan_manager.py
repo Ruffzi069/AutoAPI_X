@@ -285,6 +285,38 @@ class SocketCANManager:
         data = bytes([self.CMD_PHONE_DISCONNECT, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00])
         return self.send_frame(self.ECU_INFOTAINMENT, data, 'API_Gateway', 'Infotainment_ECU')
     
+    def start_listening(self, callback):
+        """
+        Start listening for incoming CAN frames
+        
+        Args:
+            callback: Function to call when frame is received
+                     callback(can_id, data, timestamp)
+        """
+        if not self.bus or self.simulation_mode:
+            print("⚠ CAN listening not available (simulation mode or no bus)")
+            return False
+        
+        import threading
+        
+        def listen_loop():
+            print("✓ CAN listener started on vcan0")
+            try:
+                for message in self.bus:
+                    # Call callback with frame details
+                    callback(
+                        can_id=message.arbitration_id,
+                        data=bytes(message.data),
+                        timestamp=message.timestamp
+                    )
+            except Exception as e:
+                print(f"✗ CAN listener error: {e}")
+        
+        # Start listener thread
+        self.listener_thread = threading.Thread(target=listen_loop, daemon=True)
+        self.listener_thread.start()
+        return True
+    
     def close(self):
         """Close CAN bus connection"""
         if self.bus:
