@@ -1,0 +1,274 @@
+/**
+ * Google Pixel Controller Styles
+ * Compact vehicle control interface
+ */
+
+.pixel-app {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding-bottom: 14px;
+  font-size: 0.9em;
+}
+
+/* Vehicle Header Card - More compact */
+.vehicle-header-card {
+  background: linear-gradient(135deg, rgba(109, 40, 217, 0.08) 0%, rgba(168, 85, 247, 0.08) 100%);
+  border: 1px solid rgba(109, 40, 217, 0.2);
+  border-radius: 14px;
+  padding: 16px;
+  text-align: center;
+}
+
+.vehicle-image-placeholder {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+  transform: scale(0.85);
+}
+
+.vehicle-name {
+  font-size: 16px;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin-bottom: 3px;
+}
+
+.vehicle-status {
+  font-size: 11px;
+  color: #9CA3AF;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.battery-indicator {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.battery-bar {
+  flex: 1;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.battery-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.5s ease, background-color 0.3s ease;
+}
+
+.battery-text {
+  font-size: 12px;
+  font-weight: 600;
+  color: #FFFFFF;
+  min-width: 35px;
+  text-align: right;
+}
+
+/* Quick Status - More compact */
+.quick-status-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+
+.status-chip {
+  background: rgba(26, 26, 36, 0.4);
+  border: 1px solid rgba(109, 40, 217, 0.15);
+  border-radius: 10px;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  font-size: 10px;
+  color: #E5E7EB;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.status-chip svg {
+  width: 14px;
+  height: 14px;
+  color: #9CA3AF;
+}
+
+/* Control Sections - More compact */
+.control-sections {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.control-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.section-title {
+  font-size: 10px;
+  font-weight: 700;
+  color: #6B7280;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  padding-left: 3px;
+}
+
+.control-grid-1 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+
+.control-grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+/* Control Card - Reduced size */
+.control-card {
+  background: rgba(26, 26, 36, 0.4);
+  border: 1px solid rgba(109, 40, 217, 0.15);
+  border-radius: 12px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.control-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(109, 40, 217, 0.05) 0%, rgba(168, 85, 247, 0.05) 100%);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.control-card:hover::before {
+  opacity: 1;
+}
+
+.control-card:active {
+  transform: scale(0.98);
+}
+
+.control-card.primary {
+  border-color: rgba(109, 40, 217, 0.25);
+}
+
+.control-card.primary .card-icon {
+  color: #A855F7;
+}
+
+.control-card.secondary {
+  border-color: rgba(107, 114, 128, 0.2);
+}
+
+.control-card.secondary .card-icon {
+  color: #6B7280;
+}
+
+.control-card.active {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.12) 0%, rgba(16, 185, 129, 0.06) 100%);
+  border-color: rgba(16, 185, 129, 0.4);
+}
+
+.control-card.active .card-icon {
+  color: #10B981;
+}
+
+.control-card.full-width {
+  grid-column: 1 / -1;
+}
+
+.control-card:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.card-icon {
+  position: relative;
+  z-index: 1;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  text-align: center;
+}
+
+.card-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #FFFFFF;
+}
+
+.card-sublabel {
+  font-size: 9px;
+  color: #6B7280;
+  font-weight: 500;
+}
+
+/* Error Banner */
+.error-banner {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: 10px;
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  animation: slideIn 0.3s ease;
+}
+
+.error-icon {
+  font-size: 16px;
+}
+
+.error-text {
+  font-size: 11px;
+  color: #FCA5A5;
+  font-weight: 500;
+  flex: 1;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 360px) {
+  .control-grid-2 {
+    grid-template-columns: 1fr;
+  }
+}

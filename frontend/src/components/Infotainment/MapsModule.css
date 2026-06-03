@@ -1,0 +1,238 @@
+.maps-module {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.maps-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 400px;
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.maps-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.maps-icon {
+  font-size: 32px;
+}
+
+.maps-header h2 {
+  flex: 1;
+  margin: 0;
+  font-size: 24px;
+  color: #A855F7;
+}
+
+.nav-badge {
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.nav-badge.active {
+  background: rgba(16, 185, 129, 0.2);
+  color: #10B981;
+  border-color: rgba(16, 185, 129, 0.3);
+}
+
+.map-display {
+  width: 100%;
+  height: 300px;
+  background: linear-gradient(135deg, rgba(109, 40, 217, 0.1) 0%, rgba(168, 85, 247, 0.05) 100%);
+  border-radius: 16px;
+  border: 2px solid rgba(109, 40, 217, 0.3);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.map-placeholder {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.map-icon {
+  font-size: 80px;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.location-info {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.info-card {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.info-icon {
+  font-size: 28px;
+}
+
+.info-label {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.5);
+  margin: 0 0 5px 0;
+}
+
+.info-value {
+  font-size: 16px;
+  font-weight: 500;
+  margin: 0;
+  color: #fff;
+}
+
+.nav-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.stat {
+  text-align: center;
+  padding: 20px;
+  background: rgba(109, 40, 217, 0.1);
+  border-radius: 12px;
+  border: 1px solid rgba(109, 40, 217, 0.3);
+}
+
+.stat-value {
+  display: block;
+  font-size: 24px;
+  font-weight: 600;
+  color: #A855F7;
+  margin-bottom: 5px;
+}
+
+.stat-label {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.nav-button {
+  width: 100%;
+  padding: 15px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+}
+
+.nav-button.stop {
+  background: rgba(239, 68, 68, 0.2);
+  color: #EF4444;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.nav-button.stop:hover {
+  background: rgba(239, 68, 68, 0.3);
+}
+
+.quick-destinations {
+  margin-bottom: 20px;
+}
+
+.quick-destinations h3 {
+  font-size: 16px;
+  margin: 0 0 15px 0;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.dest-button {
+  width: 100%;
+  padding: 15px;
+  margin-bottom: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  color: #fff;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: left;
+}
+
+.dest-button:hover {
+  background: rgba(109, 40, 217, 0.2);
+  border-color: #A855F7;
+}
+
+.chargers-section {
+  margin-top: 20px;
+}
+
+.chargers-section h3 {
+  font-size: 16px;
+  margin: 0 0 15px 0;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.chargers-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.charger-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.charger-icon {
+  font-size: 24px;
+}
+
+.charger-info {
+  flex: 1;
+}
+
+.charger-name {
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0 0 5px 0;
+}
+
+.charger-distance {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.5);
+  margin: 0;
+}
+
+.charger-available {
+  font-size: 14px;
+  color: #10B981;
+  font-weight: 600;
+}

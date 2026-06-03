@@ -1,0 +1,111 @@
+/**
+ * Severity Assessment Styles
+ */
+
+.severity-assessment {
+  background: rgba(26, 26, 36, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.severity-header {
+  margin-bottom: 20px;
+}
+
+.severity-header h3 {
+  margin: 0 0 4px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #E5E7EB;
+}
+
+.severity-subtitle {
+  margin: 0;
+  font-size: 12px;
+  color: #9CA3AF;
+}
+
+.severity-gauge {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  padding: 20px 0;
+  position: relative;
+}
+
+.gauge-track {
+  width: 60px;
+  height: 280px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 30px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.gauge-fill {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border-radius: 30px;
+  opacity: 0.8;
+}
+
+.gauge-markers {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 280px;
+  position: relative;
+}
+
+.marker-line {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  left: 0;
+}
+
+.marker-dot {
+  width: 8px;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+}
+
+.marker-label {
+  font-size: 12px;
+  color: #9CA3AF;
+  white-space: nowrap;
+}
+
+.severity-result {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  margin-top: 16px;
+}
+
+.severity-label {
+  font-size: 18px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.severity-value {
+  font-size: 24px;
+  font-weight: 600;
+  color: #E5E7EB;
+}

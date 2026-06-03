@@ -1,0 +1,176 @@
+/**
+ * Infotainment CAN Monitor Styles
+ */
+
+.infotainment-can-monitor {
+  background: rgba(26, 26, 36, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  padding: 16px;
+  backdrop-filter: blur(10px);
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+}
+
+.can-frames-container {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.can-frames-container::-webkit-scrollbar {
+  width: 4px;
+}
+
+.can-frames-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.can-frames-container::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+}
+
+.can-frame-entry {
+  background: rgba(26, 26, 36, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 12px;
+}
+
+.frame-main {
+  display: grid;
+  grid-template-columns: 70px 80px 1fr 180px;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.frame-time {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: #6B7280;
+  font-weight: 500;
+}
+
+.frame-can-id {
+  display: flex;
+  align-items: center;
+}
+
+.can-id-badge {
+  padding: 2px 8px;
+  background: rgba(168, 85, 247, 0.15);
+  border: 1px solid rgba(168, 85, 247, 0.3);
+  border-radius: 6px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  color: #A855F7;
+  letter-spacing: 0.3px;
+}
+
+.frame-ecu {
+  display: flex;
+  align-items: center;
+}
+
+.ecu-flow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10px;
+}
+
+.ecu-name {
+  font-weight: 500;
+  padding: 2px 6px;
+  border-radius: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ecu-name.source {
+  background: rgba(56, 189, 248, 0.15);
+  color: #38BDF8;
+  border: 1px solid rgba(56, 189, 248, 0.2);
+}
+
+.ecu-name.dest {
+  background: rgba(16, 185, 129, 0.15);
+  color: #10B981;
+  border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.arrow {
+  color: #6B7280;
+  font-size: 12px;
+}
+
+.frame-event {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.event-icon {
+  font-size: 14px;
+}
+
+.event-type {
+  font-size: 11px;
+  font-weight: 500;
+  color: #E5E7EB;
+}
+
+.frame-payload {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+  margin-top: 6px;
+  font-family: 'JetBrains Mono', monospace;
+  border: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.payload-label {
+  font-size: 9px;
+  color: #6B7280;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.payload-data {
+  font-size: 11px;
+  color: #9CA3AF;
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+
+.frame-transaction {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  background: rgba(109, 40, 217, 0.08);
+  border-radius: 6px;
+  margin-top: 6px;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.frame-count {
+  font-size: 11px;
+  color: #6B7280;
+  font-weight: 500;
+  padding: 2px 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+}

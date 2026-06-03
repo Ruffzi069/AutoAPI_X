@@ -1,0 +1,143 @@
+/**
+ * Component Info Panel Styles
+ */
+
+.component-info-panel {
+  background: rgba(26, 26, 36, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 20px;
+  height: fit-content;
+  max-height: 700px;
+  overflow-y: auto;
+}
+
+.component-info-panel::-webkit-scrollbar {
+  width: 4px;
+}
+
+.component-info-panel::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 2px;
+}
+
+.component-info-panel::-webkit-scrollbar-thumb {
+  background: rgba(139, 92, 246, 0.3);
+  border-radius: 2px;
+}
+
+.info-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  text-align: center;
+  color: #6B7280;
+}
+
+.info-empty-state p {
+  margin: 16px 0 0 0;
+  font-size: 14px;
+}
+
+.info-header {
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.info-header h3 {
+  margin: 0 0 8px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #E5E7EB;
+}
+
+.component-type-badge {
+  font-size: 10px;
+  color: #8B5CF6;
+  padding: 4px 10px;
+  background: rgba(139, 92, 246, 0.15);
+  border-radius: 12px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.info-section {
+  margin-bottom: 20px;
+}
+
+.info-section h4 {
+  margin: 0 0 12px 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: #9CA3AF;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.info-section p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #D1D5DB;
+}
+
+.info-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.info-list-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  font-size: 12px;
+  color: #E5E7EB;
+}
+
+.info-list-item svg {
+  color: #8B5CF6;
+  flex-shrink: 0;
+}
+
+.info-list-item.connected svg {
+  color: #3B82F6;
+}
+
+.info-list-item.attack {
+  background: rgba(239, 68, 68, 0.08);
+  border-color: rgba(239, 68, 68, 0.2);
+}
+
+.info-list-item.attack svg {
+  color: #EF4444;
+}
+
+.risk-level-display {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+}
+
+.risk-indicator-large {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+}
+
+.risk-level-text {
+  font-size: 16px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}

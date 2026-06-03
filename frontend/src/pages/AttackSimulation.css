@@ -1,0 +1,56 @@
+/**
+ * Attack Simulation Laboratory Styles
+ * Live cybersecurity experiment platform
+ */
+
+.attack-simulation-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0F0F14 0%, #1a1a24 100%);
+  color: #E5E7EB;
+  padding: 24px;
+}
+
+.attack-simulation-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 28px;
+  padding: 20px 24px;
+  background: rgba(26, 26, 36, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+}
+
+.header-content h1 {
+  margin: 0 0 4px 0;
+  font-size: 26px;
+  font-weight: 600;
+  color: #E5E7EB;
+}
+
+.header-subtitle {
+  margin: 0;
+  font-size: 13px;
+  color: #9CA3AF;
+  font-weight: 400;
+}
+
+.simulation-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.telemetry-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+@media (max-width: 1024px) {
+  .telemetry-grid {
+    grid-template-columns: 1fr;
+  }
+}

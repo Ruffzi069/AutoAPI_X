@@ -1,0 +1,8 @@
+Flask==3.0.0
+Flask-SocketIO==5.3.5
+Flask-CORS==4.0.0
+python-socketio==5.10.0
+eventlet==0.33.3
+
+# Optional: Only required for Linux with actual CAN hardware
+# python-can==4.3.1

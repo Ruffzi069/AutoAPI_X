@@ -1,0 +1,132 @@
+/**
+ * ECU Activity Graph Styles
+ */
+
+.ecu-activity-graph {
+  background: rgba(26, 26, 36, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.ecu-activity-graph .graph-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.ecu-activity-graph h3 {
+  margin: 0 0 4px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #E5E7EB;
+}
+
+.ecu-activity-graph .graph-subtitle {
+  margin: 0;
+  font-size: 12px;
+  color: #9CA3AF;
+}
+
+.ecu-activity-graph .graph-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.ecu-activity-graph .stat-value {
+  font-size: 24px;
+  font-weight: 600;
+  color: #3B82F6;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.ecu-activity-graph .stat-label {
+  font-size: 11px;
+  color: #6B7280;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.ecu-chart {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.ecu-bar-row {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ecu-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ecu-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: #D1D5DB;
+}
+
+.ecu-count {
+  font-size: 11px;
+  color: #6B7280;
+}
+
+.ecu-bar-container {
+  width: 100%;
+  height: 32px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 6px;
+  overflow: hidden;
+  position: relative;
+}
+
+.ecu-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #3B82F6 0%, rgba(59, 130, 246, 0.3) 100%);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 12px;
+  position: relative;
+}
+
+.bar-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #E5E7EB;
+}
+
+.ecu-legend {
+  display: flex;
+  gap: 16px;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.legend-color {
+  width: 32px;
+  height: 12px;
+  border-radius: 3px;
+}
+
+.legend-item span {
+  font-size: 11px;
+  color: #9CA3AF;
+}

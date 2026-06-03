@@ -1,0 +1,126 @@
+/**
+ * CAN Activity Panel Styles
+ */
+
+.can-activity-panel {
+  background: rgba(26, 26, 36, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 20px;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+}
+
+.panel-header {
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.panel-header h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #E5E7EB;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.panel-icon {
+  font-size: 18px;
+}
+
+.activity-stream {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.activity-stream::-webkit-scrollbar {
+  width: 6px;
+}
+
+.activity-stream::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 3px;
+}
+
+.activity-stream::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+}
+
+.empty-stream {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #6B7280;
+}
+
+.empty-icon {
+  font-size: 48px;
+  margin-bottom: 12px;
+  opacity: 0.4;
+}
+
+.empty-stream p {
+  margin: 0;
+  font-size: 13px;
+}
+
+.can-event {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.event-time {
+  font-size: 11px;
+  color: #6B7280;
+  font-family: 'Courier New', monospace;
+}
+
+.event-can {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.can-id-badge {
+  padding: 3px 8px;
+  background: rgba(245, 158, 11, 0.15);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #F59E0B;
+  font-family: 'Courier New', monospace;
+}
+
+.ecu-name {
+  font-size: 12px;
+  color: #D1D5DB;
+  font-weight: 500;
+}
+
+.event-description {
+  font-size: 13px;
+  color: #E5E7EB;
+  font-weight: 500;
+}
+
+.event-txn {
+  font-size: 11px;
+  color: #A855F7;
+  font-family: 'Courier New', monospace;
+}

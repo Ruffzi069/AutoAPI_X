@@ -1,0 +1,67 @@
+/**
+ * Attack Summary Styles
+ */
+
+.attack-summary {
+  background: rgba(26, 26, 36, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.summary-header h2 {
+  margin: 0 0 20px 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #E5E7EB;
+}
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.summary-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.summary-label {
+  font-size: 12px;
+  color: #6B7280;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+}
+
+.summary-value {
+  font-size: 15px;
+  color: #E5E7EB;
+  font-weight: 600;
+}
+
+.summary-value.attack-name {
+  color: #A855F7;
+  font-size: 17px;
+}
+
+.summary-value.transaction-id {
+  font-family: 'Courier New', monospace;
+  color: #A855F7;
+  font-size: 14px;
+}
+
+.summary-value.status {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+}
+
+.summary-value.status.success {
+  background: rgba(16, 185, 129, 0.15);
+  color: #10B981;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}

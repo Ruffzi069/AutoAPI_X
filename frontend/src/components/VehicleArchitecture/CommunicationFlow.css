@@ -1,0 +1,90 @@
+/**
+ * Communication Flow Styles
+ */
+
+.communication-flow {
+  background: rgba(26, 26, 36, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.flow-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.flow-header h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #E5E7EB;
+}
+
+.flow-mode {
+  font-size: 12px;
+  color: #9CA3AF;
+  padding: 4px 12px;
+  background: rgba(139, 92, 246, 0.15);
+  border-radius: 12px;
+  font-weight: 600;
+}
+
+.flow-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.flow-step-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  position: relative;
+}
+
+.step-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: rgba(139, 92, 246, 0.15);
+  border: 2px solid rgba(139, 92, 246, 0.5);
+  border-radius: 50%;
+  font-size: 14px;
+  font-weight: 700;
+  color: #8B5CF6;
+  flex-shrink: 0;
+}
+
+.step-content {
+  flex: 1;
+  padding: 12px 0;
+}
+
+.step-component {
+  font-size: 14px;
+  font-weight: 600;
+  color: #E5E7EB;
+  margin-bottom: 4px;
+}
+
+.step-description {
+  font-size: 12px;
+  color: #9CA3AF;
+}
+
+.step-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  left: 15px;
+  bottom: -12px;
+  color: rgba(139, 92, 246, 0.5);
+}

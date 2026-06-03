@@ -1,0 +1,46 @@
+/**
+ * CAN Traffic Graph Styles
+ */
+
+.can-traffic-graph {
+  background: rgba(26, 26, 36, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.can-traffic-graph .graph-header {
+  margin-bottom: 20px;
+}
+
+.can-traffic-graph h3 {
+  margin: 0 0 4px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #E5E7EB;
+}
+
+.can-traffic-graph .graph-subtitle {
+  margin: 0;
+  font-size: 12px;
+  color: #9CA3AF;
+}
+
+.can-traffic-graph .graph-container {
+  position: relative;
+}
+
+.traffic-chart {
+  width: 100%;
+  height: 200px;
+  display: block;
+}
+
+.can-traffic-graph .axis-labels {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 4px;
+  margin-top: 8px;
+  font-size: 11px;
+  color: #6B7280;
+}

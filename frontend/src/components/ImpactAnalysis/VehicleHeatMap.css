@@ -1,0 +1,77 @@
+/**
+ * Vehicle Heat Map Styles
+ */
+
+.vehicle-heat-map {
+  background: rgba(26, 26, 36, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.heatmap-header {
+  margin-bottom: 20px;
+}
+
+.heatmap-header h3 {
+  margin: 0 0 4px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #E5E7EB;
+}
+
+.heatmap-subtitle {
+  margin: 0;
+  font-size: 12px;
+  color: #9CA3AF;
+}
+
+.vehicle-diagram {
+  margin-bottom: 16px;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.heatmap-svg {
+  width: 100%;
+  max-width: 600px;
+  height: auto;
+  display: block;
+}
+
+.component-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 10px;
+}
+
+.component-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: rgba(239, 68, 68, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  border-radius: 8px;
+}
+
+.component-icon {
+  color: #EF4444;
+  flex-shrink: 0;
+}
+
+.component-name {
+  font-size: 13px;
+  color: #E5E7EB;
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .component-list {
+    grid-template-columns: 1fr;
+  }
+}

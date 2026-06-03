@@ -1,0 +1,372 @@
+/**
+ * Vehicle Info Panel Styles - Redesigned
+ */
+
+.vehicle-info-panel-redesign {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  height: 100%;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.vehicle-info-panel-redesign::-webkit-scrollbar {
+  width: 6px;
+}
+
+.vehicle-info-panel-redesign::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.vehicle-info-panel-redesign::-webkit-scrollbar-thumb {
+  background: rgba(109, 40, 217, 0.3);
+  border-radius: 3px;
+}
+
+/* Info Card */
+.info-card {
+  background: rgba(26, 26, 36, 0.6);
+  border: 1px solid rgba(109, 40, 217, 0.2);
+  border-radius: 16px;
+  padding: 20px;
+  backdrop-filter: blur(10px);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.card-header h3 {
+  font-size: 14px;
+  font-weight: 700;
+  color: #FFFFFF;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.status-badge {
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.status-badge.active {
+  background: rgba(16, 185, 129, 0.2);
+  color: #10B981;
+}
+
+/* Vehicle Info Grid */
+.vehicle-info-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.info-label {
+  font-size: 12px;
+  color: #9CA3AF;
+  font-weight: 600;
+}
+
+.info-value {
+  font-size: 13px;
+  color: #FFFFFF;
+  font-weight: 600;
+}
+
+.info-value.mono {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+}
+
+/* Status Grid */
+.status-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.status-item-card {
+  background: rgba(15, 15, 20, 0.6);
+  border: 1px solid rgba(109, 40, 217, 0.15);
+  border-radius: 12px;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.status-icon-wrapper {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+  flex-shrink: 0;
+}
+
+.status-label {
+  font-size: 11px;
+  color: #9CA3AF;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.status-value {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: capitalize;
+}
+
+/* State List */
+.state-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.state-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px;
+  background: rgba(15, 15, 20, 0.4);
+  border-radius: 10px;
+}
+
+.state-icon-wrapper {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+  flex-shrink: 0;
+}
+
+.state-label {
+  flex: 1;
+  font-size: 13px;
+  color: #E5E7EB;
+  font-weight: 600;
+}
+
+.state-badge {
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: capitalize;
+}
+
+/* Health Grid */
+.health-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.health-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.health-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+  flex-shrink: 0;
+}
+
+.health-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.health-label {
+  font-size: 12px;
+  color: #9CA3AF;
+  font-weight: 600;
+}
+
+.health-bar {
+  height: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.health-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.5s ease;
+}
+
+.health-value {
+  font-size: 14px;
+  color: #FFFFFF;
+  font-weight: 700;
+}
+
+.health-value.mono {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+}
+
+/* Live Activity Feed */
+.live-activity-feed {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.feed-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.feed-header h3 {
+  font-size: 14px;
+  font-weight: 700;
+  color: #FFFFFF;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.activity-count {
+  font-size: 11px;
+  color: #9CA3AF;
+  font-weight: 600;
+}
+
+.feed-content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.feed-content::-webkit-scrollbar {
+  width: 4px;
+}
+
+.feed-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.feed-content::-webkit-scrollbar-thumb {
+  background: rgba(109, 40, 217, 0.3);
+  border-radius: 2px;
+}
+
+.feed-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  gap: 12px;
+}
+
+.feed-empty p {
+  font-size: 13px;
+  color: #6B7280;
+  font-weight: 600;
+}
+
+.activity-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  background: rgba(15, 15, 20, 0.4);
+  border-radius: 10px;
+  position: relative;
+  overflow: hidden;
+}
+
+.activity-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+  flex-shrink: 0;
+}
+
+.activity-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.activity-text {
+  font-size: 12px;
+  color: #E5E7EB;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.activity-time {
+  font-size: 10px;
+  color: #9CA3AF;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.activity-pulse {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: translateY(-50%) scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: translateY(-50%) scale(1.2);
+  }
+}
+
+@media (max-width: 1280px) {
+  .status-grid {
+    grid-template-columns: 1fr;
+  }
+}

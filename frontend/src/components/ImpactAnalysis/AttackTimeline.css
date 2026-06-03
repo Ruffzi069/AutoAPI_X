@@ -1,0 +1,33 @@
+.attack-timeline {
+  background: rgba(26, 26, 36, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.attack-timeline h2 {
+  margin: 0 0 20px 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #E5E7EB;
+}
+
+.timeline-stats {
+  display: flex;
+  gap: 32px;
+}
+
+.stat {
+  display: flex;
+  gap: 8px;
+  font-size: 15px;
+}
+
+.stat span {
+  color: #9CA3AF;
+}
+
+.stat strong {
+  color: #A855F7;
+  font-weight: 700;
+}
