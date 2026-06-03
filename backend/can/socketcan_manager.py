@@ -21,24 +21,26 @@ except ImportError:
 class SocketCANManager:
     """Manages SocketCAN interface for vehicle CAN bus simulation"""
     
-    # ECU Mappings
-    ECU_DOOR = 0x321
-    ECU_HORN = 0x322
-    ECU_BOOT = 0x323
-    ECU_IGNITION = 0x324
-    ECU_LIGHTS = 0x325
-    ECU_GPS = 0x327
-    ECU_INFOTAINMENT = 0x400
+    # ECU Mappings (Updated to match specification)
+    ECU_DOOR = 0x321        # Door lock/unlock
+    ECU_HORN = 0x320        # Horn
+    ECU_LIGHTS = 0x322      # Flash lights
+    ECU_BOOT = 0x330        # Boot open/close
+    ECU_IGNITION = 0x400    # Engine start/stop
+    ECU_GPS = 0x500         # GPS/Locate vehicle
+    ECU_INFOTAINMENT = 0x600  # Infotainment events
+    ECU_OTA = 0x700         # OTA events
     
-    # Command codes
+    # Command codes (Updated to match specification)
     CMD_LOCK = 0x01
     CMD_UNLOCK = 0x02
-    CMD_OPEN = 0x03
-    CMD_CLOSE = 0x04
-    CMD_START = 0x05
-    CMD_STOP = 0x06
-    CMD_ON = 0x07
-    CMD_OFF = 0x08
+    CMD_HORN_ON = 0x01
+    CMD_LIGHTS_FLASH = 0x01
+    CMD_BOOT_OPEN = 0x01
+    CMD_BOOT_CLOSE = 0x00
+    CMD_ENGINE_START = 0x01
+    CMD_ENGINE_STOP = 0x00
+    # GPS locate uses ASCII "GPS" in payload
     
     # Media commands
     CMD_MEDIA_PLAY = 0x10
@@ -144,71 +146,68 @@ class SocketCANManager:
     
     def send_boot_open(self):
         """Send boot open command"""
-        data = bytes([self.CMD_OPEN, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00])
+        data = bytes([self.CMD_BOOT_OPEN, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00])
         return self.send_frame(self.ECU_BOOT, data, 'API_Gateway', 'Boot_ECU')
     
     def send_boot_close(self):
         """Send boot close command"""
-        data = bytes([self.CMD_CLOSE, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00])
+        data = bytes([self.CMD_BOOT_CLOSE, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00])
         return self.send_frame(self.ECU_BOOT, data, 'API_Gateway', 'Boot_ECU')
     
     def send_engine_start(self):
         """Send engine start command"""
-        data = bytes([self.CMD_START, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00])
+        data = bytes([self.CMD_ENGINE_START, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00])
         return self.send_frame(self.ECU_IGNITION, data, 'API_Gateway', 'Ignition_ECU')
     
     def send_engine_stop(self):
         """Send engine stop command"""
-        data = bytes([self.CMD_STOP, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00])
+        data = bytes([self.CMD_ENGINE_STOP, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00])
         return self.send_frame(self.ECU_IGNITION, data, 'API_Gateway', 'Ignition_ECU')
     
     def send_horn(self, duration_ms: int = 1000):
         """Send horn activation command"""
-        # Pack duration as 2-byte value
-        duration_bytes = struct.pack('>H', duration_ms)
-        data = bytes([self.CMD_ON]) + duration_bytes + bytes([0x00] * 5)
+        data = bytes([self.CMD_HORN_ON, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00])
         return self.send_frame(self.ECU_HORN, data, 'API_Gateway', 'Horn_ECU')
     
     def send_lights_on(self):
         """Send lights on command"""
-        data = bytes([self.CMD_ON, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00])
+        data = bytes([0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00])
         return self.send_frame(self.ECU_LIGHTS, data, 'API_Gateway', 'Lights_ECU')
     
     def send_lights_off(self):
         """Send lights off command"""
-        data = bytes([self.CMD_OFF, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00])
+        data = bytes([0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00])
         return self.send_frame(self.ECU_LIGHTS, data, 'API_Gateway', 'Lights_ECU')
     
     def send_lights_flash(self):
         """Send lights flash command"""
-        # Flash command with 3 flashes
-        data = bytes([self.CMD_ON, 0x03, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00])
+        data = bytes([self.CMD_LIGHTS_FLASH, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00])
         return self.send_frame(self.ECU_LIGHTS, data, 'API_Gateway', 'Lights_ECU')
     
     def send_gps_locate(self):
-        """Send GPS locate command"""
-        # Locate command
-        data = bytes([self.CMD_ON, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00])
+        """Send GPS locate command - uses ASCII 'GPS' in payload"""
+        # Payload: "GPS" in ASCII = 0x47 0x50 0x53
+        data = bytes([0x47, 0x50, 0x53, 0x00, 0x00, 0x00, 0x00, 0x00])
         return self.send_frame(self.ECU_GPS, data, 'API_Gateway', 'GPS_ECU')
     
     def send_gps_activate(self):
         """Send GPS activation command"""
-        data = bytes([self.CMD_ON, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00])
+        data = bytes([0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00])
         return self.send_frame(self.ECU_GPS, data, 'API_Gateway', 'GPS_ECU')
     
     def send_gps_deactivate(self):
         """Send GPS deactivation command"""
-        data = bytes([self.CMD_OFF, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00])
+        data = bytes([0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00])
         return self.send_frame(self.ECU_GPS, data, 'API_Gateway', 'GPS_ECU')
     
     def send_infotainment_online(self):
         """Send infotainment online command"""
-        data = bytes([self.CMD_ON, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00])
+        data = bytes([0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00])
         return self.send_frame(self.ECU_INFOTAINMENT, data, 'API_Gateway', 'Infotainment_ECU')
     
     def send_infotainment_offline(self):
         """Send infotainment offline command"""
-        data = bytes([self.CMD_OFF, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00])
+        data = bytes([0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00])
         return self.send_frame(self.ECU_INFOTAINMENT, data, 'API_Gateway', 'Infotainment_ECU')
     
     # Media Control Methods
@@ -263,17 +262,17 @@ class SocketCANManager:
     def send_ota_check(self):
         """Send OTA check for updates command"""
         data = bytes([self.CMD_OTA_CHECK, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00])
-        return self.send_frame(self.ECU_INFOTAINMENT, data, 'API_Gateway', 'Infotainment_ECU')
+        return self.send_frame(self.ECU_OTA, data, 'API_Gateway', 'OTA_ECU')
     
     def send_ota_download(self):
         """Send OTA download command"""
         data = bytes([self.CMD_OTA_DOWNLOAD, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00])
-        return self.send_frame(self.ECU_INFOTAINMENT, data, 'API_Gateway', 'Infotainment_ECU')
+        return self.send_frame(self.ECU_OTA, data, 'API_Gateway', 'OTA_ECU')
     
     def send_ota_install(self):
         """Send OTA install command"""
         data = bytes([self.CMD_OTA_INSTALL, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00])
-        return self.send_frame(self.ECU_INFOTAINMENT, data, 'API_Gateway', 'Infotainment_ECU')
+        return self.send_frame(self.ECU_OTA, data, 'API_Gateway', 'OTA_ECU')
     
     # Phone Methods
     def send_phone_sync(self):
