@@ -24,39 +24,46 @@ interface CANActivityPanelProps {
 }
 
 const attackCANSequences: Record<string, Array<{canId: string, ecu: string, event: string, delay: number}>> = {
+  'replay': [
+    { canId: '0x321', ecu: 'Door Control ECU', event: 'Unlock Command', delay: 600 },
+    { canId: '0x321', ecu: 'Door Control ECU', event: 'Unlock Command (Replay #2)', delay: 900 },
+    { canId: '0x321', ecu: 'Door Control ECU', event: 'Unlock Command (Replay #3)', delay: 1200 },
+    { canId: '0x321', ecu: 'Door Control ECU', event: 'Unlock Command (Replay #4)', delay: 1500 },
+    { canId: '0x321', ecu: 'Door Control ECU', event: 'Unlock Command (Replay #5)', delay: 1800 }
+  ],
   'idor': [
     { canId: '0x321', ecu: 'Door Control ECU', event: 'Unauthorized Unlock', delay: 600 },
-    { canId: '0x327', ecu: 'GPS ECU', event: 'Location Access', delay: 1200 },
-    { canId: '0x2C1', ecu: 'Gateway ECU', event: 'State Query', delay: 1800 }
+    { canId: '0x500', ecu: 'GPS ECU', event: 'Location Access', delay: 1200 },
+    { canId: '0x330', ecu: 'Boot ECU', event: 'Unauthorized Boot Open', delay: 1800 }
   ],
-  'broken-auth': [
-    { canId: '0x320', ecu: 'Body Control ECU', event: 'Horn Activation', delay: 600 },
-    { canId: '0x320', ecu: 'Body Control ECU', event: 'Lights Control', delay: 1200 },
-    { canId: '0x400', ecu: 'Infotainment ECU', event: 'Media Playback', delay: 1800 }
+  'broken-authentication': [
+    { canId: '0x321', ecu: 'Door Control ECU', event: 'Unlock Without Auth', delay: 600 },
+    { canId: '0x320', ecu: 'Horn ECU', event: 'Horn Activation', delay: 1200 },
+    { canId: '0x322', ecu: 'Lights ECU', event: 'Lights Flash', delay: 1800 },
+    { canId: '0x400', ecu: 'Ignition ECU', event: 'Engine Start', delay: 2400 }
   ],
-  'replay-attack': [
-    { canId: '0x321', ecu: 'Door Control ECU', event: 'Unlock Command', delay: 600 },
-    { canId: '0x321', ecu: 'Door Control ECU', event: 'Unlock Command (Replay)', delay: 900 },
-    { canId: '0x321', ecu: 'Door Control ECU', event: 'Unlock Command (Replay)', delay: 1200 },
-    { canId: '0x321', ecu: 'Door Control ECU', event: 'Unlock Command (Replay)', delay: 1500 }
+  'excessive-data-exposure': [
+    { canId: '0x500', ecu: 'GPS ECU', event: 'Location Broadcast', delay: 600 },
+    { canId: '0x500', ecu: 'GPS ECU', event: 'GPS Query', delay: 1200 },
+    { canId: '0x500', ecu: 'GPS ECU', event: 'Telemetry Data', delay: 1800 },
+    { canId: '0x500', ecu: 'GPS ECU', event: 'Location Query', delay: 2100 },
+    { canId: '0x500', ecu: 'GPS ECU', event: 'Privacy Leak', delay: 2400 }
   ],
-  'data-exposure': [
-    { canId: '0x327', ecu: 'GPS ECU', event: 'Location Broadcast', delay: 600 },
-    { canId: '0x3B2', ecu: 'Telemetry ECU', event: 'Data Exposure', delay: 1200 },
-    { canId: '0x2C1', ecu: 'Gateway ECU', event: 'Privacy Leak', delay: 1800 }
-  ],
-  'rate-limiting': [
-    { canId: '0x320', ecu: 'Body Control ECU', event: 'Horn Command', delay: 300 },
-    { canId: '0x320', ecu: 'Body Control ECU', event: 'Horn Command', delay: 400 },
-    { canId: '0x320', ecu: 'Body Control ECU', event: 'Horn Command', delay: 500 },
-    { canId: '0x320', ecu: 'Body Control ECU', event: 'Horn Command', delay: 600 },
-    { canId: '0x320', ecu: 'Body Control ECU', event: 'Horn Command', delay: 700 },
-    { canId: '0x320', ecu: 'Body Control ECU', event: 'Horn Command', delay: 800 }
+  'rate-limiting-failure': [
+    { canId: '0x321', ecu: 'Door Control ECU', event: 'Unlock Command', delay: 300 },
+    { canId: '0x321', ecu: 'Door Control ECU', event: 'Lock Command', delay: 400 },
+    { canId: '0x320', ecu: 'Horn ECU', event: 'Horn Command', delay: 500 },
+    { canId: '0x322', ecu: 'Lights ECU', event: 'Lights Command', delay: 600 },
+    { canId: '0x500', ecu: 'GPS ECU', event: 'GPS Command', delay: 700 },
+    { canId: '0x330', ecu: 'Boot ECU', event: 'Boot Command', delay: 800 },
+    { canId: '0x321', ecu: 'Door Control ECU', event: 'Flood Frame', delay: 900 }
   ],
   'ota-manipulation': [
-    { canId: '0x400', ecu: 'Infotainment ECU', event: 'Firmware Check', delay: 600 },
-    { canId: '0x400', ecu: 'Infotainment ECU', event: 'Firmware Download', delay: 1800 },
-    { canId: '0x400', ecu: 'Infotainment ECU', event: 'Malicious Firmware Install', delay: 3000 }
+    { canId: '0x700', ecu: 'OTA ECU', event: 'Firmware Check', delay: 600 },
+    { canId: '0x700', ecu: 'OTA ECU', event: 'Firmware Download', delay: 1800 },
+    { canId: '0x700', ecu: 'OTA ECU', event: 'Malicious Install', delay: 3000 },
+    { canId: '0x700', ecu: 'OTA ECU', event: 'Verify (Bypassed)', delay: 3500 },
+    { canId: '0x600', ecu: 'Infotainment ECU', event: 'System Compromised', delay: 4000 }
   ]
 };
 

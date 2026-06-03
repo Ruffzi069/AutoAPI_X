@@ -24,34 +24,39 @@ interface APIActivityPanelProps {
 }
 
 const attackAPISequences: Record<string, Array<{method: string, endpoint: string, status: number, delay: number}>> = {
-  'idor': [
-    { method: 'POST', endpoint: '/api/vehicles/5YJ3E1EA1KF999999/unlock', status: 200, delay: 500 },
-    { method: 'GET', endpoint: '/api/vehicles/5YJ3E1EA1KF999999/location', status: 200, delay: 1000 },
-    { method: 'GET', endpoint: '/api/vehicles/5YJ3E1EA1KF999999/status', status: 200, delay: 1500 }
-  ],
-  'broken-auth': [
-    { method: 'POST', endpoint: '/api/vehicles/5YJ3E1EA1KF000001/horn', status: 200, delay: 500 },
-    { method: 'POST', endpoint: '/api/vehicles/5YJ3E1EA1KF000001/lights', status: 200, delay: 1000 },
-    { method: 'POST', endpoint: '/api/media/play', status: 200, delay: 1500 }
-  ],
-  'replay-attack': [
+  'replay': [
     { method: 'POST', endpoint: '/api/vehicles/5YJ3E1EA1KF000001/unlock', status: 200, delay: 500 },
     { method: 'POST', endpoint: '/api/vehicles/5YJ3E1EA1KF000001/unlock', status: 200, delay: 800 },
     { method: 'POST', endpoint: '/api/vehicles/5YJ3E1EA1KF000001/unlock', status: 200, delay: 1100 },
-    { method: 'POST', endpoint: '/api/vehicles/5YJ3E1EA1KF000001/unlock', status: 200, delay: 1400 }
+    { method: 'POST', endpoint: '/api/vehicles/5YJ3E1EA1KF000001/unlock', status: 200, delay: 1400 },
+    { method: 'POST', endpoint: '/api/vehicles/5YJ3E1EA1KF000001/unlock', status: 200, delay: 1700 }
   ],
-  'data-exposure': [
-    { method: 'GET', endpoint: '/api/vehicles/5YJ3E1EA1KF000001/status', status: 200, delay: 500 },
-    { method: 'GET', endpoint: '/api/vehicles/5YJ3E1EA1KF000001/telemetry', status: 200, delay: 1000 },
-    { method: 'GET', endpoint: '/api/infotainment/navigation/location', status: 200, delay: 1500 }
+  'idor': [
+    { method: 'POST', endpoint: '/api/vehicles/5YJ3E1EA1KF999999/unlock', status: 200, delay: 500 },
+    { method: 'GET', endpoint: '/api/vehicles/5YJ3E1EA1KF999999/location', status: 200, delay: 1000 },
+    { method: 'POST', endpoint: '/api/vehicles/5YJ3E1EA1KF999999/boot/open', status: 200, delay: 1500 }
   ],
-  'rate-limiting': [
-    { method: 'POST', endpoint: '/api/vehicles/5YJ3E1EA1KF000001/horn', status: 200, delay: 200 },
-    { method: 'POST', endpoint: '/api/vehicles/5YJ3E1EA1KF000001/horn', status: 200, delay: 300 },
+  'broken-authentication': [
+    { method: 'POST', endpoint: '/api/vehicles/5YJ3E1EA1KF000001/unlock', status: 200, delay: 500 },
+    { method: 'POST', endpoint: '/api/vehicles/5YJ3E1EA1KF000001/horn', status: 200, delay: 1000 },
+    { method: 'POST', endpoint: '/api/vehicles/5YJ3E1EA1KF000001/lights/flash', status: 200, delay: 1500 },
+    { method: 'POST', endpoint: '/api/vehicles/5YJ3E1EA1KF000001/engine/start', status: 200, delay: 2000 }
+  ],
+  'excessive-data-exposure': [
+    { method: 'GET', endpoint: '/api/vehicles/5YJ3E1EA1KF000001/locate', status: 200, delay: 500 },
+    { method: 'GET', endpoint: '/api/vehicles/5YJ3E1EA1KF000001/status', status: 200, delay: 1000 },
+    { method: 'GET', endpoint: '/api/vehicles/5YJ3E1EA1KF000001/telemetry', status: 200, delay: 1500 },
+    { method: 'GET', endpoint: '/api/vehicles/5YJ3E1EA1KF000001/locate', status: 200, delay: 1800 },
+    { method: 'GET', endpoint: '/api/vehicles/5YJ3E1EA1KF000001/locate', status: 200, delay: 2000 }
+  ],
+  'rate-limiting-failure': [
+    { method: 'POST', endpoint: '/api/vehicles/5YJ3E1EA1KF000001/unlock', status: 200, delay: 200 },
+    { method: 'POST', endpoint: '/api/vehicles/5YJ3E1EA1KF000001/lock', status: 200, delay: 300 },
     { method: 'POST', endpoint: '/api/vehicles/5YJ3E1EA1KF000001/horn', status: 200, delay: 400 },
-    { method: 'POST', endpoint: '/api/vehicles/5YJ3E1EA1KF000001/horn', status: 200, delay: 500 },
-    { method: 'POST', endpoint: '/api/vehicles/5YJ3E1EA1KF000001/horn', status: 200, delay: 600 },
-    { method: 'POST', endpoint: '/api/vehicles/5YJ3E1EA1KF000001/horn', status: 200, delay: 700 }
+    { method: 'POST', endpoint: '/api/vehicles/5YJ3E1EA1KF000001/lights/flash', status: 200, delay: 500 },
+    { method: 'GET', endpoint: '/api/vehicles/5YJ3E1EA1KF000001/locate', status: 200, delay: 600 },
+    { method: 'POST', endpoint: '/api/vehicles/5YJ3E1EA1KF000001/boot/open', status: 200, delay: 700 },
+    { method: 'POST', endpoint: '/api/vehicles/5YJ3E1EA1KF000001/unlock', status: 200, delay: 800 }
   ],
   'ota-manipulation': [
     { method: 'POST', endpoint: '/api/infotainment/ota/check', status: 200, delay: 500 },

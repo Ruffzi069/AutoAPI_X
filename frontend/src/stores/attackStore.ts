@@ -44,6 +44,59 @@ export interface AttackExecution {
 
 // Attack-specific impact data
 const attackImpactProfiles: Record<string, Omit<AttackExecution, 'id' | 'transactionId' | 'timestamp' | 'duration' | 'timeline'>> = {
+  'replay': {
+    attackId: 'replay',
+    attackName: 'Replay Attack',
+    targetSystems: ['Command Processing', 'Vehicle Access', 'CAN Bus'],
+    affectedAPIs: [
+      '/api/vehicles/{vin}/unlock',
+      '/api/vehicles/{vin}/engine/start'
+    ],
+    affectedECUs: ['Door Control ECU', 'Engine Control ECU', 'Gateway ECU'],
+    affectedCANIds: ['0x321', '0x2C1', '0x244'],
+    affectedComponents: ['Door System', 'Command Processing', 'ECU Network'],
+    apiRequests: 5,
+    canFrames: 5,
+    riskDistribution: {
+      privacy: 50,
+      operational: 80,
+      safety: 60,
+      technical: 70
+    },
+    telemetry: {
+      apiActivity: [
+        { time: 0, count: 0 },
+        { time: 0.5, count: 1 },
+        { time: 0.8, count: 2 },
+        { time: 1.1, count: 3 },
+        { time: 1.4, count: 4 },
+        { time: 1.7, count: 5 },
+        { time: 2.0, count: 5 }
+      ],
+      canActivity: [
+        { time: 0, count: 0 },
+        { time: 0.6, count: 1 },
+        { time: 0.9, count: 2 },
+        { time: 1.2, count: 3 },
+        { time: 1.5, count: 4 },
+        { time: 1.8, count: 5 },
+        { time: 2.0, count: 5 }
+      ],
+      ecuActivity: {
+        'Door Control ECU': 5,
+        'Engine Control ECU': 1,
+        'Gateway ECU': 5
+      }
+    },
+    attackPath: [
+      { step: 1, component: 'Attacker', type: 'attacker' },
+      { step: 2, component: 'Captured Command', type: 'api' },
+      { step: 3, component: 'Gateway ECU', type: 'ecu' },
+      { step: 4, component: 'Door Control ECU (x5)', type: 'ecu' },
+      { step: 5, component: 'Vehicle', type: 'vehicle' }
+    ],
+    vehicleHeatMap: ['door', 'network']
+  },
   'idor': {
     attackId: 'idor',
     attackName: 'IDOR',
@@ -94,8 +147,8 @@ const attackImpactProfiles: Record<string, Omit<AttackExecution, 'id' | 'transac
     ],
     vehicleHeatMap: ['door', 'gps', 'network']
   },
-  'broken-auth': {
-    attackId: 'broken-auth',
+  'broken-authentication': {
+    attackId: 'broken-authentication',
     attackName: 'Broken Authentication',
     targetSystems: ['Authentication', 'API Gateway', 'Vehicle Control'],
     affectedAPIs: [
@@ -144,59 +197,8 @@ const attackImpactProfiles: Record<string, Omit<AttackExecution, 'id' | 'transac
     ],
     vehicleHeatMap: ['horn', 'lights', 'network']
   },
-  'replay-attack': {
-    attackId: 'replay-attack',
-    attackName: 'Replay Attack',
-    targetSystems: ['Command Processing', 'Vehicle Access', 'CAN Bus'],
-    affectedAPIs: [
-      '/api/vehicles/{vin}/unlock',
-      '/api/vehicles/{vin}/engine/start'
-    ],
-    affectedECUs: ['Door Control ECU', 'Engine Control ECU', 'Gateway ECU'],
-    affectedCANIds: ['0x321', '0x2C1', '0x244'],
-    affectedComponents: ['Door System', 'Command Processing', 'ECU Network'],
-    apiRequests: 4,
-    canFrames: 4,
-    riskDistribution: {
-      privacy: 50,
-      operational: 80,
-      safety: 60,
-      technical: 70
-    },
-    telemetry: {
-      apiActivity: [
-        { time: 0, count: 0 },
-        { time: 0.5, count: 1 },
-        { time: 0.8, count: 2 },
-        { time: 1.1, count: 3 },
-        { time: 1.4, count: 4 },
-        { time: 2.0, count: 4 }
-      ],
-      canActivity: [
-        { time: 0, count: 0 },
-        { time: 0.6, count: 1 },
-        { time: 0.9, count: 2 },
-        { time: 1.2, count: 3 },
-        { time: 1.5, count: 4 },
-        { time: 2.0, count: 4 }
-      ],
-      ecuActivity: {
-        'Door Control ECU': 4,
-        'Engine Control ECU': 1,
-        'Gateway ECU': 4
-      }
-    },
-    attackPath: [
-      { step: 1, component: 'Attacker', type: 'attacker' },
-      { step: 2, component: 'Captured Command', type: 'api' },
-      { step: 3, component: 'Gateway ECU', type: 'ecu' },
-      { step: 4, component: 'Door Control ECU (x4)', type: 'ecu' },
-      { step: 5, component: 'Vehicle', type: 'vehicle' }
-    ],
-    vehicleHeatMap: ['door', 'network']
-  },
-  'data-exposure': {
-    attackId: 'data-exposure',
+  'excessive-data-exposure': {
+    attackId: 'excessive-data-exposure',
     attackName: 'Excessive Data Exposure',
     targetSystems: ['Data Privacy', 'Location Services', 'Telemetry'],
     affectedAPIs: [
@@ -245,8 +247,8 @@ const attackImpactProfiles: Record<string, Omit<AttackExecution, 'id' | 'transac
     ],
     vehicleHeatMap: ['gps', 'network']
   },
-  'rate-limiting': {
-    attackId: 'rate-limiting',
+  'rate-limiting-failure': {
+    attackId: 'rate-limiting-failure',
     attackName: 'Rate Limiting Failure',
     targetSystems: ['API Gateway', 'Service Availability', 'Resource Management'],
     affectedAPIs: [

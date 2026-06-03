@@ -22,6 +22,21 @@ interface VehicleEvent {
 }
 
 const attackEventSequences: Record<string, Array<{message: string, delay: number}>> = {
+  'replay': [
+    { message: 'Attack Started', delay: 100 },
+    { message: 'Command Capture Successful', delay: 500 },
+    { message: 'Replaying Unlock Command #1', delay: 700 },
+    { message: 'CAN Frame 0x321 Sent', delay: 800 },
+    { message: 'Replaying Unlock Command #2', delay: 1000 },
+    { message: 'CAN Frame 0x321 Sent', delay: 1100 },
+    { message: 'Replaying Unlock Command #3', delay: 1300 },
+    { message: 'CAN Frame 0x321 Sent', delay: 1400 },
+    { message: 'Replaying Unlock Command #4', delay: 1600 },
+    { message: 'CAN Frame 0x321 Sent', delay: 1700 },
+    { message: 'Replaying Unlock Command #5', delay: 1900 },
+    { message: 'CAN Frame 0x321 Sent', delay: 2000 },
+    { message: 'Attack Completed', delay: 2200 }
+  ],
   'idor': [
     { message: 'Attack Started', delay: 100 },
     { message: 'API Request Generated', delay: 600 },
@@ -33,40 +48,33 @@ const attackEventSequences: Record<string, Array<{message: string, delay: number
     { message: 'Privacy Compromised', delay: 2000 },
     { message: 'Attack Completed', delay: 2500 }
   ],
-  'broken-auth': [
+  'broken-authentication': [
     { message: 'Attack Started', delay: 100 },
     { message: 'API Request Without Auth', delay: 600 },
     { message: 'Authorization Bypassed', delay: 700 },
-    { message: 'Horn Activation Command', delay: 800 },
-    { message: 'CAN Frame 0x320 Sent', delay: 900 },
-    { message: 'Body Control ECU Activated', delay: 1000 },
-    { message: 'Lights Control Executed', delay: 1500 },
-    { message: 'Remote Access Granted', delay: 2000 },
-    { message: 'Attack Completed', delay: 2500 }
+    { message: 'Door Unlock Command', delay: 800 },
+    { message: 'CAN Frame 0x321 Sent', delay: 900 },
+    { message: 'Horn Activation Command', delay: 1300 },
+    { message: 'CAN Frame 0x320 Sent', delay: 1400 },
+    { message: 'Lights Control Executed', delay: 1900 },
+    { message: 'CAN Frame 0x322 Sent', delay: 2000 },
+    { message: 'Engine Start Command', delay: 2400 },
+    { message: 'CAN Frame 0x400 Sent', delay: 2500 },
+    { message: 'Attack Completed', delay: 3000 }
   ],
-  'replay-attack': [
-    { message: 'Attack Started', delay: 100 },
-    { message: 'Command Capture Successful', delay: 500 },
-    { message: 'Replaying Unlock Command #1', delay: 700 },
-    { message: 'CAN Frame 0x321 Sent', delay: 800 },
-    { message: 'Replaying Unlock Command #2', delay: 1000 },
-    { message: 'CAN Frame 0x321 Sent', delay: 1100 },
-    { message: 'Replaying Unlock Command #3', delay: 1300 },
-    { message: 'CAN Frame 0x321 Sent', delay: 1400 },
-    { message: 'ECU Confusion State', delay: 1800 },
-    { message: 'Attack Completed', delay: 2000 }
-  ],
-  'data-exposure': [
+  'excessive-data-exposure': [
     { message: 'Attack Started', delay: 100 },
     { message: 'API Request Generated', delay: 600 },
     { message: 'Excessive Data Response', delay: 800 },
     { message: 'GPS Location Data Exposed', delay: 900 },
-    { message: 'CAN Frame 0x327 Captured', delay: 1000 },
-    { message: 'Telemetry Data Leaked', delay: 1500 },
-    { message: 'Privacy Violation', delay: 2000 },
-    { message: 'Attack Completed', delay: 2500 }
+    { message: 'CAN Frame 0x500 Captured', delay: 1000 },
+    { message: 'Telemetry Query #1', delay: 1400 },
+    { message: 'Telemetry Query #2', delay: 1800 },
+    { message: 'Telemetry Query #3', delay: 2100 },
+    { message: 'Privacy Violation', delay: 2400 },
+    { message: 'Attack Completed', delay: 2800 }
   ],
-  'rate-limiting': [
+  'rate-limiting-failure': [
     { message: 'Attack Started', delay: 100 },
     { message: 'Flooding API Endpoint', delay: 300 },
     { message: 'Request #1 Sent', delay: 400 },
@@ -74,8 +82,10 @@ const attackEventSequences: Record<string, Array<{message: string, delay: number
     { message: 'Request #3 Sent', delay: 600 },
     { message: 'Request #4 Sent', delay: 700 },
     { message: 'Request #5 Sent', delay: 800 },
-    { message: 'System Overload Detected', delay: 1000 },
-    { message: 'Service Degradation', delay: 1500 },
+    { message: 'Request #6 Sent', delay: 900 },
+    { message: 'Request #7 Sent', delay: 1000 },
+    { message: 'System Overload Detected', delay: 1200 },
+    { message: 'Service Degradation', delay: 1600 },
     { message: 'Attack Completed', delay: 2000 }
   ],
   'ota-manipulation': [
@@ -83,11 +93,13 @@ const attackEventSequences: Record<string, Array<{message: string, delay: number
     { message: 'OTA Check Initiated', delay: 600 },
     { message: 'Firmware Verification Bypassed', delay: 1200 },
     { message: 'Malicious Package Downloaded', delay: 1800 },
-    { message: 'CAN Frame 0x400 Sent', delay: 2000 },
+    { message: 'CAN Frame 0x700 Sent', delay: 2000 },
     { message: 'Infotainment ECU Compromised', delay: 2600 },
-    { message: 'Firmware Installation Complete', delay: 3200 },
-    { message: 'System Compromised', delay: 3500 },
-    { message: 'Attack Completed', delay: 4000 }
+    { message: 'CAN Frame 0x700 Sent (Install)', delay: 3200 },
+    { message: 'Firmware Installation Complete', delay: 3800 },
+    { message: 'CAN Frame 0x600 Sent', delay: 4200 },
+    { message: 'System Compromised', delay: 4600 },
+    { message: 'Attack Completed', delay: 5000 }
   ]
 };
 
