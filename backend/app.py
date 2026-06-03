@@ -12,6 +12,7 @@ from routes.vehicle_routes import vehicle_bp
 from routes.system_routes import system_bp
 from routes.media_routes import media_bp
 from routes.infotainment_routes import infotainment_bp
+from routes.attack_routes import attack_bp
 
 # Initialize Flask app
 app = Flask(__name__)
@@ -28,6 +29,7 @@ app.register_blueprint(system_bp, url_prefix='/api/system')
 app.register_blueprint(vehicle_bp, url_prefix='/api/vehicles')
 app.register_blueprint(media_bp, url_prefix='/api/media')
 app.register_blueprint(infotainment_bp, url_prefix='/api/infotainment')
+app.register_blueprint(attack_bp, url_prefix='/api/attacks')
 
 # Initialize database
 with app.app_context():
