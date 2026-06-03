@@ -3,7 +3,7 @@ CAN Service for AutoAPI-X
 Manages CAN frame generation and logging
 """
 
-from can.socketcan_manager import SocketCANManager
+from can_manager.socketcan_manager import SocketCANManager
 from services.logging_service import LoggingService
 
 class CANService:
