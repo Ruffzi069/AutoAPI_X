@@ -429,5 +429,6 @@ The platform does not interface with real vehicles and should not be used to tes
 ---
 
 ## License
-
 Educational & Research Use License
+
+### By Daksh Bhagwani
